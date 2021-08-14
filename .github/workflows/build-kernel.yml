@@ -11,7 +11,7 @@ jobs:
     - uses: actions/checkout@v2
     - run: make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- bcm2711_defconfig
     - run: make -j6 ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- Image modules dtbs
-    - name: Archive code coverage results
+    - name: Upload kernel image
       uses: actions/upload-artifact@v2
       with:
         name: ${{ github.sha }}.kernel8.img
