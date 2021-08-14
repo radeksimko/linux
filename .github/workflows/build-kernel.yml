@@ -6,6 +6,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+    - name: Install gcc-aarch64-linux-gnu
+      run: sudo apt-get install gcc-aarch64-linux-gnu
     - uses: actions/checkout@v2
     - run: make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- bcm2711_defconfig
     - run: make -j6 ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- Image modules dtbs
