@@ -1,0 +1,17 @@
+name: Build kernel
+
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - run: make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- bcm2711_defconfig
+    - run: make -j6 ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- Image modules dtbs
+    - name: Archive code coverage results
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{ github.sha }}/kernel8.img
+        path: arch/arm64/boot/Image
+        if-no-files-found: error
